@@ -85,7 +85,7 @@ public class PowerOptimizationService {
         // Solve the linear optimization problem
         SimplexSolver solver = new SimplexSolver();
         double[] solution = solver.optimize(
-            new MaxIter(100),               // stop after a hundred iterations
+            new MaxIter(100),
             objectiveFunction,
             new LinearConstraintSet(constraints),
             GoalType.MINIMIZE,
