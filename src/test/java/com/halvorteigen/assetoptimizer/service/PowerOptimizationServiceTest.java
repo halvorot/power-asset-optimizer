@@ -19,8 +19,8 @@ class PowerOptimizationServiceTest {
     void should_optimize_power() {
         // Arrange
         AssetRegistry assetRegistry = new AssetRegistry();
-        double totalEnergyUsagePer24Hours = 2231.0;
-        double minPowerUsage = 10.0;
+        double totalEnergyUsagePer24Hours = 231.0;
+        double minPowerUsage = 1.0;
         double maxPowerUsage = 100.0;
         assetRegistry.register(
             new Asset("asset1", totalEnergyUsagePer24Hours, minPowerUsage, maxPowerUsage, PriceArea.NO1)
