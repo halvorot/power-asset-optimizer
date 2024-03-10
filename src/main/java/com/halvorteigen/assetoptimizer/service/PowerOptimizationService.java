@@ -46,20 +46,6 @@ public class PowerOptimizationService {
             asset.priceArea()
         );
 
-        /* SIMPLE ALTERNATIVE
-        Double sumPowerPrices = powerPrices.stream().mapToDouble(PowerPrice::priceNokPerKwh).sum();
-        Map<Integer, Double> powerUsagePerHour = new HashMap<>();
-        for (int hour = 0; hour < HOURS_PER_DAY; hour++) {
-            double priceFactor = powerPrices.get(hour).priceNokPerKwh() / sumPowerPrices;
-            double optimizedPower = totalEnergyUsagePer24Hours * priceFactor;
-
-            // Assuming that it is more important to keep within the min max range than to sum up to the total energy usage
-            optimizedPower = Math.max(minPowerUsage, Math.min(optimizedPower, maxPowerUsage));
-
-            powerUsagePerHour.put(hour, optimizedPower);
-        }
-        */
-
         /*
         Can set this up as a linear optimization problem
         Minimize f = sumFrom1To24(priceForHourX * powerUsageForHourX)
