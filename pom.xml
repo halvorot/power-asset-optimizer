@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>no.halvorteigen</groupId>
-    <artifactId>asset-optimizer</artifactId>
+    <artifactId>power-asset-optimizer</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>asset-optimizer</name>
     <description>asset-optimizer</description>

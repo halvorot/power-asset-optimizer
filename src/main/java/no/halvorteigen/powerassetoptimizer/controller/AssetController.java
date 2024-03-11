@@ -1,7 +1,7 @@
-package no.halvorteigen.assetoptimizer.controller;
+package no.halvorteigen.powerassetoptimizer.controller;
 
-import no.halvorteigen.assetoptimizer.model.Asset;
-import no.halvorteigen.assetoptimizer.registry.AssetRegistry;
+import no.halvorteigen.powerassetoptimizer.model.Asset;
+import no.halvorteigen.powerassetoptimizer.registry.AssetRegistry;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

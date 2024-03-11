@@ -1,6 +1,6 @@
-package no.halvorteigen.assetoptimizer.registry;
+package no.halvorteigen.powerassetoptimizer.registry;
 
-import no.halvorteigen.assetoptimizer.model.Asset;
+import no.halvorteigen.powerassetoptimizer.model.Asset;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;

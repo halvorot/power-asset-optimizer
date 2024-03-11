@@ -1,4 +1,4 @@
-package no.halvorteigen.assetoptimizer.config;
+package no.halvorteigen.powerassetoptimizer.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

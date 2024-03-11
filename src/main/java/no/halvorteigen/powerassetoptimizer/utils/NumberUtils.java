@@ -1,4 +1,4 @@
-package no.halvorteigen.assetoptimizer.utils;
+package no.halvorteigen.powerassetoptimizer.utils;
 
 public class NumberUtils {
 

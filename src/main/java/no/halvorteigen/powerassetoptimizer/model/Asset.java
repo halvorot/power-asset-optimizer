@@ -1,6 +1,6 @@
-package no.halvorteigen.assetoptimizer.model;
+package no.halvorteigen.powerassetoptimizer.model;
 
-import no.halvorteigen.assetoptimizer.enums.PriceArea;
+import no.halvorteigen.powerassetoptimizer.enums.PriceArea;
 
 public record Asset(
     String name,                        // NOTE: Assuming the name is unique and can be used as an identifier

@@ -1,10 +1,10 @@
-package no.halvorteigen.assetoptimizer.service;
+package no.halvorteigen.powerassetoptimizer.service;
 
-import no.halvorteigen.assetoptimizer.dto.PowerPriceDto;
-import no.halvorteigen.assetoptimizer.enums.PriceArea;
-import no.halvorteigen.assetoptimizer.mappers.MapPowerPriceDtoToPowerPrice;
-import no.halvorteigen.assetoptimizer.model.PowerPrice;
-import no.halvorteigen.assetoptimizer.utils.NumberUtils;
+import no.halvorteigen.powerassetoptimizer.dto.PowerPriceDto;
+import no.halvorteigen.powerassetoptimizer.enums.PriceArea;
+import no.halvorteigen.powerassetoptimizer.mappers.MapPowerPriceDtoToPowerPrice;
+import no.halvorteigen.powerassetoptimizer.model.PowerPrice;
+import no.halvorteigen.powerassetoptimizer.utils.NumberUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 

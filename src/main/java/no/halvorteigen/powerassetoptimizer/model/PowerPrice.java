@@ -1,4 +1,4 @@
-package no.halvorteigen.assetoptimizer.model;
+package no.halvorteigen.powerassetoptimizer.model;
 
 import java.time.LocalDateTime;
 

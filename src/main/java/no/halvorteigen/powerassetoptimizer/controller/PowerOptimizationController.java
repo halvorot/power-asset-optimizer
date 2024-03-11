@@ -1,8 +1,8 @@
-package no.halvorteigen.assetoptimizer.controller;
+package no.halvorteigen.powerassetoptimizer.controller;
 
-import no.halvorteigen.assetoptimizer.model.Asset;
-import no.halvorteigen.assetoptimizer.registry.AssetRegistry;
-import no.halvorteigen.assetoptimizer.service.PowerOptimizationService;
+import no.halvorteigen.powerassetoptimizer.model.Asset;
+import no.halvorteigen.powerassetoptimizer.registry.AssetRegistry;
+import no.halvorteigen.powerassetoptimizer.service.PowerOptimizationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

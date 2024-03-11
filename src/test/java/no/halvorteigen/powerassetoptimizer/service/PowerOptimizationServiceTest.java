@@ -1,8 +1,8 @@
-package no.halvorteigen.assetoptimizer.service;
+package no.halvorteigen.powerassetoptimizer.service;
 
-import no.halvorteigen.assetoptimizer.dto.PowerPriceDto;
-import no.halvorteigen.assetoptimizer.enums.PriceArea;
-import no.halvorteigen.assetoptimizer.model.Asset;
+import no.halvorteigen.powerassetoptimizer.dto.PowerPriceDto;
+import no.halvorteigen.powerassetoptimizer.enums.PriceArea;
+import no.halvorteigen.powerassetoptimizer.model.Asset;
 import org.apache.commons.math3.optim.linear.NoFeasibleSolutionException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

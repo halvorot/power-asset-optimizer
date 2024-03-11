@@ -1,4 +1,4 @@
-package no.halvorteigen.assetoptimizer.utils;
+package no.halvorteigen.powerassetoptimizer.utils;
 
 import org.junit.jupiter.api.Test;
 

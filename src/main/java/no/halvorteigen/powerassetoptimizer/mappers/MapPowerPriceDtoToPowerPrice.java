@@ -1,7 +1,7 @@
-package no.halvorteigen.assetoptimizer.mappers;
+package no.halvorteigen.powerassetoptimizer.mappers;
 
-import no.halvorteigen.assetoptimizer.dto.PowerPriceDto;
-import no.halvorteigen.assetoptimizer.model.PowerPrice;
+import no.halvorteigen.powerassetoptimizer.dto.PowerPriceDto;
+import no.halvorteigen.powerassetoptimizer.model.PowerPrice;
 
 public class MapPowerPriceDtoToPowerPrice {
 

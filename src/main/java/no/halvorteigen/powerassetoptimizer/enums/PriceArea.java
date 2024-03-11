@@ -1,4 +1,4 @@
-package no.halvorteigen.assetoptimizer.enums;
+package no.halvorteigen.powerassetoptimizer.enums;
 
 public enum PriceArea {
     NO1,

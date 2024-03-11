@@ -1,7 +1,7 @@
-package no.halvorteigen.assetoptimizer.service;
+package no.halvorteigen.powerassetoptimizer.service;
 
-import no.halvorteigen.assetoptimizer.model.Asset;
-import no.halvorteigen.assetoptimizer.model.PowerPrice;
+import no.halvorteigen.powerassetoptimizer.model.Asset;
+import no.halvorteigen.powerassetoptimizer.model.PowerPrice;
 import org.apache.commons.math3.optim.MaxIter;
 import org.apache.commons.math3.optim.linear.*;
 import org.apache.commons.math3.optim.nonlinear.scalar.GoalType;

@@ -1,10 +1,10 @@
-package no.halvorteigen.assetoptimizer;
+package no.halvorteigen.powerassetoptimizer;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class AssetOptimizerApplicationTests {
+class PowerAssetOptimizerApplicationTests {
 
     @Test
     void contextLoads() {

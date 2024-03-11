@@ -1,4 +1,4 @@
-package no.halvorteigen.assetoptimizer.dto;
+package no.halvorteigen.powerassetoptimizer.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
