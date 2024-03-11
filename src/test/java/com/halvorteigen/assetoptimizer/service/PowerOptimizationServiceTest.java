@@ -22,6 +22,9 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+/**
+ * NOTE: The tests do not use realistic numbers, just random numbers that cause the desired behavior
+ */
 @ExtendWith(MockitoExtension.class)
 class PowerOptimizationServiceTest {
 

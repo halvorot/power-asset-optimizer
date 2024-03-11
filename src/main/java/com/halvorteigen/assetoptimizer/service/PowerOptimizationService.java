@@ -76,7 +76,8 @@ public class PowerOptimizationService {
         return IntStream.range(0, solution.length)
                         .boxed()
                         .collect(Collectors.toMap(index -> index, index -> solution[index]));
-        // NOTE: May want to implement a semi optimal solution if the optimization fails
+        // NOTE: May want to implement a semi optimal solution if the optimization fails,
+        // or at least handle infeasible cases more gracefully
     }
 
 }
