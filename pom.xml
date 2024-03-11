@@ -11,8 +11,8 @@
     <groupId>no.halvorteigen</groupId>
     <artifactId>power-asset-optimizer</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>asset-optimizer</name>
-    <description>asset-optimizer</description>
+    <name>power-asset-optimizer</name>
+    <description>power-asset-optimizer</description>
     <properties>
         <java.version>21</java.version>
         <commons-math3.version>3.6.1</commons-math3.version>
