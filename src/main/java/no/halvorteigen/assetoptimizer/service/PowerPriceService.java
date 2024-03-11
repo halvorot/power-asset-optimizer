@@ -34,7 +34,7 @@ public class PowerPriceService {
     }
 
     private static String getUrl(int year, int month, int day, PriceArea priceArea) {
-        // NOTE: Assuming year, month and day are valid and not after today
+        // NOTE: Assuming year, month and day are valid
         String monthFormatted = NumberUtils.fillLeadingZeros(month, 2);
         String dayFormatted = NumberUtils.fillLeadingZeros(day, 2);
         return BASE_URL + year + "/" + monthFormatted + "-" + dayFormatted + "_" + priceArea.name() + ".json";
