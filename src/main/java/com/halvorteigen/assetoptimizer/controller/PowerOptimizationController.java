@@ -26,6 +26,7 @@ public class PowerOptimizationController {
         this.powerOptimizationService = powerOptimizationService;
     }
 
+    // NOTE: Assuming that returning a Map instead of a list is ok. Can easily be converted to a list if needed.
     @GetMapping("/{assetName}")
     public ResponseEntity<Map<Integer, Double>> optimizeAssetPower(@PathVariable String assetName) {
         Asset asset = assetRegistry.getByName(assetName);
