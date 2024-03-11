@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * - All power usage values must be non-negative, i.e. Assets are consumers and not generators
  * - Using an in-memory registry is sufficient for this case
  * - We optimize based on the power price in NOK
+ * - Error handling and logging are not prioritized in this case
  * <p>
  * Other assumptions are marked with 'NOTE:' in the code
  */
