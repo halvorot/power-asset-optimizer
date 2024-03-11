@@ -17,7 +17,7 @@ public class PowerPriceService {
     public static final String BASE_URL = "https://www.hvakosterstrommen.no/api/v1/prices/";
     private final RestTemplate restTemplate;
 
-    public PowerPriceService(RestTemplate restTemplate) {
+    public PowerPriceService(final RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
@@ -33,7 +33,7 @@ public class PowerPriceService {
     }
 
     private static String getUrl(int year, int month, int day, PriceArea priceArea) {
-        // Assuming year, month and day are valid and not after today
+        // NOTE: Assuming year, month and day are valid and not after today
         String monthFormatted = NumberUtils.fillLeadingZeros(month, 2);
         String dayFormatted = NumberUtils.fillLeadingZeros(day, 2);
         return BASE_URL + year + "/" + monthFormatted + "-" + dayFormatted + "_" + priceArea.name() + ".json";

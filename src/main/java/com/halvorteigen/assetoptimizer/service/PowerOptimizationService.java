@@ -2,7 +2,6 @@ package com.halvorteigen.assetoptimizer.service;
 
 import com.halvorteigen.assetoptimizer.model.Asset;
 import com.halvorteigen.assetoptimizer.model.PowerPrice;
-import com.halvorteigen.assetoptimizer.registry.AssetRegistry;
 import org.apache.commons.math3.optim.MaxIter;
 import org.apache.commons.math3.optim.linear.*;
 import org.apache.commons.math3.optim.nonlinear.scalar.GoalType;
@@ -20,20 +19,17 @@ import java.util.stream.IntStream;
 @Service
 public class PowerOptimizationService {
     public static final int HOURS_PER_DAY = 24;
-    private final AssetRegistry assetRegistry;
     private final PowerPriceService powerPriceService;
     private final Clock clock;
 
-    public PowerOptimizationService(final AssetRegistry assetRegistry, final PowerPriceService powerPriceService, Clock clock) {
-        this.assetRegistry = assetRegistry;
+    public PowerOptimizationService(final PowerPriceService powerPriceService, Clock clock) {
         this.powerPriceService = powerPriceService;
         this.clock = clock;
     }
 
-    public Map<Integer, Double> optimizePowerUsage(String assetName) {
+    public Map<Integer, Double> optimizePowerUsage(Asset asset) {
 
-        Asset asset = assetRegistry.getByName(assetName);
-        // Assuming min, max and total energy usage are valid and produce a feasible solution
+        // NOTE: Assuming min, max and total energy usage are valid and produce a feasible solution
         Double totalEnergyUsagePer24Hours = asset.totalEnergyUsagePer24Hours();
         Double minPowerUsage = asset.minPowerUsage();
         Double maxPowerUsage = asset.maxPowerUsage();
@@ -63,25 +59,24 @@ public class PowerOptimizationService {
 
         for (int i = 0; i < HOURS_PER_DAY; i++) {
             double[] coefficients = new double[HOURS_PER_DAY];
-            coefficients[i] = 1.0; // Each variable represents power usage for one hour
+            coefficients[i] = 1.0;
             constraints.add(new LinearConstraint(coefficients, Relationship.GEQ, minPowerUsage));
             constraints.add(new LinearConstraint(coefficients, Relationship.LEQ, maxPowerUsage));
         }
 
-        // Solve the linear optimization problem
         SimplexSolver solver = new SimplexSolver();
         double[] solution = solver.optimize(
             new MaxIter(100),
             objectiveFunction,
             new LinearConstraintSet(constraints),
             GoalType.MINIMIZE,
-            new NonNegativeConstraint(true) // All power usage values must be non-negative
+            new NonNegativeConstraint(true) // NOTE: Assuming all power usage values must be non-negative
         ).getPoint();
 
         return IntStream.range(0, solution.length)
                         .boxed()
                         .collect(Collectors.toMap(index -> index, index -> solution[index]));
-
+        // NOTE: May want to implement a semi optimal solution if the optimization fails
     }
 
 }

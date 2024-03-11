@@ -6,6 +6,9 @@ import org.springframework.stereotype.Repository;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * NOTE: May be replaced with a database or other persistent storage
+ */
 @Repository
 public class AssetRegistry {
 

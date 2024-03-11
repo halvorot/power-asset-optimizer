@@ -2,10 +2,14 @@ package com.halvorteigen.assetoptimizer.controller;
 
 import com.halvorteigen.assetoptimizer.model.Asset;
 import com.halvorteigen.assetoptimizer.registry.AssetRegistry;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * NOTE: The asset registers through this API
+ */
 @RestController
-@RequestMapping("/asset")
+@RequestMapping("api/v1/asset")
 public class AssetController {
 
     private final AssetRegistry assetRegistry;
@@ -15,13 +19,17 @@ public class AssetController {
     }
 
     @PostMapping
-    public Asset registerAsset(@RequestBody Asset asset) {
-        return assetRegistry.register(asset);
+    public ResponseEntity<Asset> registerAsset(@RequestBody Asset asset) {
+        return ResponseEntity.ok().body(assetRegistry.register(asset));
     }
 
     @DeleteMapping("/{name}")
-    public Asset removeAsset(@PathVariable String name) {
-        return assetRegistry.removeByName(name);
+    public ResponseEntity<Asset> removeAsset(@PathVariable String name) {
+        Asset removedAsset = assetRegistry.removeByName(name);
+        if (removedAsset == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok().body(removedAsset);
     }
 
 }
