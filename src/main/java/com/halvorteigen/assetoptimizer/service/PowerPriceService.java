@@ -14,6 +14,7 @@ import java.util.stream.Stream;
 @Service
 public class PowerPriceService {
 
+    // NOTE: May want to have this url as a configuration property
     public static final String BASE_URL = "https://www.hvakosterstrommen.no/api/v1/prices/";
     private final RestTemplate restTemplate;
 
