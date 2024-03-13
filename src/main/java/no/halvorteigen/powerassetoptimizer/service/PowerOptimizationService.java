@@ -1,6 +1,6 @@
 package no.halvorteigen.powerassetoptimizer.service;
 
-import no.halvorteigen.powerassetoptimizer.model.Asset;
+import no.halvorteigen.powerassetoptimizer.entity.AssetEntity;
 import no.halvorteigen.powerassetoptimizer.model.PowerPrice;
 import org.apache.commons.math3.optim.MaxIter;
 import org.apache.commons.math3.optim.linear.*;
@@ -27,18 +27,18 @@ public class PowerOptimizationService {
         this.clock = clock;
     }
 
-    public Map<Integer, Double> optimizePowerUsage(Asset asset) {
+    public Map<Integer, Double> optimizePowerUsage(AssetEntity asset) {
 
         // NOTE: Assuming min, max and total energy usage are valid and produce a feasible solution
         Double totalEnergyUsagePer24Hours = asset.totalEnergyUsagePer24Hours();
         Double minPowerUsage = asset.minPowerUsage();
         Double maxPowerUsage = asset.maxPowerUsage();
 
-        LocalDateTime now = LocalDateTime.now(clock);
+        LocalDateTime tomorrow = LocalDateTime.now(clock).plusDays(1);
         List<PowerPrice> powerPrices = powerPriceService.getPowerPrices(
-            now.getYear(),
-            now.getMonthValue(),
-            now.getDayOfMonth(),
+            tomorrow.getYear(),
+            tomorrow.getMonthValue(),
+            tomorrow.getDayOfMonth(),
             asset.priceArea()
         );
 
@@ -70,7 +70,8 @@ public class PowerOptimizationService {
             objectiveFunction,
             new LinearConstraintSet(constraints),
             GoalType.MINIMIZE,
-            new NonNegativeConstraint(true) // NOTE: Assuming all power usage values must be non-negative
+            new NonNegativeConstraint(true)
+            // NOTE: Assuming all power usage values must be non-negative
         ).getPoint();
 
         return IntStream.range(0, solution.length)

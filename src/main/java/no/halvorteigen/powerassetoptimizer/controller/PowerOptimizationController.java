@@ -1,6 +1,5 @@
 package no.halvorteigen.powerassetoptimizer.controller;
 
-import no.halvorteigen.powerassetoptimizer.model.Asset;
 import no.halvorteigen.powerassetoptimizer.registry.AssetRegistry;
 import no.halvorteigen.powerassetoptimizer.service.PowerOptimizationService;
 import org.springframework.http.ResponseEntity;
