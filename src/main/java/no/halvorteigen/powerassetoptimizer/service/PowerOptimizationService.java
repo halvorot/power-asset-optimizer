@@ -34,11 +34,12 @@ public class PowerOptimizationService {
         Double minPowerUsage = asset.minPowerUsage();
         Double maxPowerUsage = asset.maxPowerUsage();
 
-        LocalDateTime now = LocalDateTime.now(clock);
+        // NOTE: Optimizing for the next day
+        LocalDateTime tomorrow = LocalDateTime.now(clock).plusDays(1);
         List<PowerPrice> powerPrices = powerPriceService.getPowerPrices(
-            now.getYear(),
-            now.getMonthValue(),
-            now.getDayOfMonth(),
+            tomorrow.getYear(),
+            tomorrow.getMonthValue(),
+            tomorrow.getDayOfMonth(),
             asset.priceArea()
         );
 
