@@ -37,7 +37,13 @@ class PowerOptimizationServiceTest {
         double totalEnergyUsagePer24Hours = 1924.0;
         double minPowerUsage = 10.0;
         double maxPowerUsage = 100.0;
-        AssetEntity asset1 = new AssetEntity("asset1", totalEnergyUsagePer24Hours, minPowerUsage, maxPowerUsage, PriceArea.NO1);
+        AssetEntity asset1 = new AssetEntity(
+            "asset1",
+            minPowerUsage,
+            maxPowerUsage,
+            totalEnergyUsagePer24Hours,
+            PriceArea.NO1
+        );
         PowerPriceService powerPriceService = new PowerPriceService(restTemplate);
         Clock clock = Clock.fixed(Instant.parse("2024-03-10T14:22:00Z"), ZoneId.of("Europe/Oslo"));
 
@@ -51,10 +57,16 @@ class PowerOptimizationServiceTest {
             ))
             .limit(24)
             .toArray(PowerPriceDto[]::new);
-        Mockito.when(restTemplate.getForObject(ArgumentMatchers.anyString(), ArgumentMatchers.eq(PowerPriceDto[].class)))
+        Mockito.when(restTemplate.getForObject(
+                   ArgumentMatchers.anyString(),
+                   ArgumentMatchers.eq(PowerPriceDto[].class)
+               ))
                .thenReturn(powerPriceDtos);
 
-        PowerOptimizationService powerOptimizationService = new PowerOptimizationService(powerPriceService, clock);
+        PowerOptimizationService powerOptimizationService = new PowerOptimizationService(
+            powerPriceService,
+            clock
+        );
 
         // Act
         Map<Integer, Double> optimizePowerUsage = powerOptimizationService.optimizePowerUsage(asset1);
@@ -75,7 +87,13 @@ class PowerOptimizationServiceTest {
         double totalEnergyUsagePer24Hours = 3000.0;
         double minPowerUsage = 10.0;
         double maxPowerUsage = 100.0;
-        AssetEntity asset1 = new AssetEntity("asset1", totalEnergyUsagePer24Hours, minPowerUsage, maxPowerUsage, PriceArea.NO1);
+        AssetEntity asset1 = new AssetEntity(
+            "asset1",
+            minPowerUsage,
+            maxPowerUsage,
+            totalEnergyUsagePer24Hours,
+            PriceArea.NO1
+        );
         PowerPriceService powerPriceService = new PowerPriceService(restTemplate);
         Clock clock = Clock.fixed(Instant.parse("2024-03-10T14:22:00Z"), ZoneId.of("Europe/Oslo"));
 
@@ -89,10 +107,16 @@ class PowerOptimizationServiceTest {
             ))
             .limit(24)
             .toArray(PowerPriceDto[]::new);
-        Mockito.when(restTemplate.getForObject(ArgumentMatchers.anyString(), ArgumentMatchers.eq(PowerPriceDto[].class)))
+        Mockito.when(restTemplate.getForObject(
+                   ArgumentMatchers.anyString(),
+                   ArgumentMatchers.eq(PowerPriceDto[].class)
+               ))
                .thenReturn(powerPriceDtos);
 
-        PowerOptimizationService powerOptimizationService = new PowerOptimizationService(powerPriceService, clock);
+        PowerOptimizationService powerOptimizationService = new PowerOptimizationService(
+            powerPriceService,
+            clock
+        );
 
         // Act & Assert
         assertThatThrownBy(() -> powerOptimizationService.optimizePowerUsage(asset1))
