@@ -69,9 +69,13 @@ public class PowerOptimizationService {
             new MaxIter(100),
             objectiveFunction,
             new LinearConstraintSet(constraints),
-            GoalType.MINIMIZE,
-            new NonNegativeConstraint(true) // NOTE: Assuming all power usage values must be non-negative
+            GoalType.MINIMIZE
         ).getPoint();
+
+        for (int i = 0; i < solution.length; i++) {
+            System.out.println("power = " + solution[i] + ", price = " + prices[i] + ", cost = " + solution[i] * prices[i]);
+        }
+        System.out.println("Total cost = " + objectiveFunction.value(solution));
 
         return IntStream.range(0, solution.length)
                         .boxed()
