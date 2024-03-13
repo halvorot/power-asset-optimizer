@@ -30,16 +30,16 @@ public class PowerOptimizationService {
     public Map<Integer, Double> optimizePowerUsage(AssetEntity asset) {
 
         // NOTE: Assuming min, max and total energy usage are valid and produce a feasible solution
-        Double totalEnergyUsagePer24Hours = asset.totalEnergyUsagePer24Hours();
-        Double minPowerUsage = asset.minPowerUsage();
-        Double maxPowerUsage = asset.maxPowerUsage();
+        Double totalEnergyUsagePer24Hours = asset.getTotalEnergyUsagePer24Hours();
+        Double minPowerUsage = asset.getMinPowerUsage();
+        Double maxPowerUsage = asset.getMaxPowerUsage();
 
         LocalDateTime tomorrow = LocalDateTime.now(clock).plusDays(1);
         List<PowerPrice> powerPrices = powerPriceService.getPowerPrices(
             tomorrow.getYear(),
             tomorrow.getMonthValue(),
             tomorrow.getDayOfMonth(),
-            asset.priceArea()
+            asset.getPriceArea()
         );
 
         /*
@@ -70,8 +70,7 @@ public class PowerOptimizationService {
             objectiveFunction,
             new LinearConstraintSet(constraints),
             GoalType.MINIMIZE,
-            new NonNegativeConstraint(true)
-            // NOTE: Assuming all power usage values must be non-negative
+            new NonNegativeConstraint(true) // NOTE: Assuming all power usage values must be non-negative
         ).getPoint();
 
         return IntStream.range(0, solution.length)

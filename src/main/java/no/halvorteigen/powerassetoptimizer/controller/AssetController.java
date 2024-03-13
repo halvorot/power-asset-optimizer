@@ -1,6 +1,10 @@
 package no.halvorteigen.powerassetoptimizer.controller;
 
-import no.halvorteigen.powerassetoptimizer.registry.AssetRegistry;
+import no.halvorteigen.powerassetoptimizer.dto.AssetDto;
+import no.halvorteigen.powerassetoptimizer.entity.AssetEntity;
+import no.halvorteigen.powerassetoptimizer.mappers.MapAssetDtoToAssetEntity;
+import no.halvorteigen.powerassetoptimizer.mappers.MapAssetEntityToAssetDto;
+import no.halvorteigen.powerassetoptimizer.repository.AssetRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,24 +15,26 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("api/v1/asset")
 public class AssetController {
 
-    private final AssetRegistry assetRegistry;
+    private final AssetRepository assetRepository;
 
-    public AssetController(AssetRegistry assetRegistry) {
-        this.assetRegistry = assetRegistry;
+    public AssetController(AssetRepository assetRepository) {
+        this.assetRepository = assetRepository;
     }
 
     @PostMapping
-    public ResponseEntity<Asset> registerAsset(@RequestBody Asset asset) {
-        return ResponseEntity.ok().body(assetRegistry.register(asset));
+    public ResponseEntity<AssetDto> registerAsset(@RequestBody AssetDto asset) {
+        AssetEntity assetEntity = assetRepository.save(MapAssetDtoToAssetEntity.map(asset));
+        return ResponseEntity.ok()
+                             .body(MapAssetEntityToAssetDto.map(assetEntity));
     }
 
     @DeleteMapping("/{name}")
-    public ResponseEntity<Asset> removeAsset(@PathVariable String name) {
-        Asset removedAsset = assetRegistry.removeByName(name);
-        if (removedAsset == null) {
+    public ResponseEntity<String> removeAsset(@PathVariable String name) {
+        if (!assetRepository.existsByName(name)) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok().body(removedAsset);
+        assetRepository.deleteByName(name);
+        return ResponseEntity.ok().build();
     }
 
 }

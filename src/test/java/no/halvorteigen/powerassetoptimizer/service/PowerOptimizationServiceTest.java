@@ -1,6 +1,7 @@
 package no.halvorteigen.powerassetoptimizer.service;
 
 import no.halvorteigen.powerassetoptimizer.dto.PowerPriceDto;
+import no.halvorteigen.powerassetoptimizer.entity.AssetEntity;
 import no.halvorteigen.powerassetoptimizer.enums.PriceArea;
 import org.apache.commons.math3.optim.linear.NoFeasibleSolutionException;
 import org.junit.jupiter.api.Test;
@@ -36,7 +37,7 @@ class PowerOptimizationServiceTest {
         double totalEnergyUsagePer24Hours = 1924.0;
         double minPowerUsage = 10.0;
         double maxPowerUsage = 100.0;
-        Asset asset1 = new Asset("asset1", totalEnergyUsagePer24Hours, minPowerUsage, maxPowerUsage, PriceArea.NO1);
+        AssetEntity asset1 = new AssetEntity("asset1", totalEnergyUsagePer24Hours, minPowerUsage, maxPowerUsage, PriceArea.NO1);
         PowerPriceService powerPriceService = new PowerPriceService(restTemplate);
         Clock clock = Clock.fixed(Instant.parse("2024-03-10T14:22:00Z"), ZoneId.of("Europe/Oslo"));
 
@@ -74,7 +75,7 @@ class PowerOptimizationServiceTest {
         double totalEnergyUsagePer24Hours = 3000.0;
         double minPowerUsage = 10.0;
         double maxPowerUsage = 100.0;
-        Asset asset1 = new Asset("asset1", totalEnergyUsagePer24Hours, minPowerUsage, maxPowerUsage, PriceArea.NO1);
+        AssetEntity asset1 = new AssetEntity("asset1", totalEnergyUsagePer24Hours, minPowerUsage, maxPowerUsage, PriceArea.NO1);
         PowerPriceService powerPriceService = new PowerPriceService(restTemplate);
         Clock clock = Clock.fixed(Instant.parse("2024-03-10T14:22:00Z"), ZoneId.of("Europe/Oslo"));
 
