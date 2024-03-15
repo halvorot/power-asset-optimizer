@@ -12,9 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 import java.util.Optional;
 
-/**
- * NOTE: The asset polls its optimized power usage through this API
- */
 @RestController
 @RequestMapping("api/v1/optimize")
 public class PowerOptimizationController {
@@ -27,7 +24,6 @@ public class PowerOptimizationController {
         this.powerOptimizationService = powerOptimizationService;
     }
 
-    // NOTE: Assuming that returning a Map instead of a list is ok. Can easily be converted to a list if needed.
     @GetMapping("/{assetName}")
     public ResponseEntity<Map<Integer, Double>> optimizeAssetPower(@PathVariable String assetName) {
         Optional<AssetEntity> assetOpt = assetRepository.findByName(assetName);

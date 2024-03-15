@@ -22,9 +22,6 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-/**
- * NOTE: The tests do not use realistic numbers, just random numbers that cause the desired behavior
- */
 @ExtendWith(MockitoExtension.class)
 class PowerOptimizationServiceTest {
 
@@ -58,10 +55,10 @@ class PowerOptimizationServiceTest {
             .limit(24)
             .toArray(PowerPriceDto[]::new);
         Mockito.when(restTemplate.getForObject(
-                   ArgumentMatchers.anyString(),
-                   ArgumentMatchers.eq(PowerPriceDto[].class)
-               ))
-               .thenReturn(powerPriceDtos);
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.eq(PowerPriceDto[].class)
+            ))
+            .thenReturn(powerPriceDtos);
 
         PowerOptimizationService powerOptimizationService = new PowerOptimizationService(
             powerPriceService,
@@ -108,10 +105,10 @@ class PowerOptimizationServiceTest {
             .limit(24)
             .toArray(PowerPriceDto[]::new);
         Mockito.when(restTemplate.getForObject(
-                   ArgumentMatchers.anyString(),
-                   ArgumentMatchers.eq(PowerPriceDto[].class)
-               ))
-               .thenReturn(powerPriceDtos);
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.eq(PowerPriceDto[].class)
+            ))
+            .thenReturn(powerPriceDtos);
 
         PowerOptimizationService powerOptimizationService = new PowerOptimizationService(
             powerPriceService,

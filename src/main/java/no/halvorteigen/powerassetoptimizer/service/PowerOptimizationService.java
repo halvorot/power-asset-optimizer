@@ -18,6 +18,7 @@ import java.util.stream.IntStream;
 
 @Service
 public class PowerOptimizationService {
+
     public static final int HOURS_PER_DAY = 24;
     private final PowerPriceService powerPriceService;
     private final Clock clock;
@@ -71,11 +72,6 @@ public class PowerOptimizationService {
             new LinearConstraintSet(constraints),
             GoalType.MINIMIZE
         ).getPoint();
-
-        for (int i = 0; i < solution.length; i++) {
-            System.out.println("power = " + solution[i] + ", price = " + prices[i] + ", cost = " + solution[i] * prices[i]);
-        }
-        System.out.println("Total cost = " + objectiveFunction.value(solution));
 
         return IntStream.range(0, solution.length)
                         .boxed()

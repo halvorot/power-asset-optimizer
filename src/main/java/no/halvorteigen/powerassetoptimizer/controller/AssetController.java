@@ -7,9 +7,6 @@ import no.halvorteigen.powerassetoptimizer.service.AssetService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * NOTE: The asset registers through this API
- */
 @RestController
 @RequestMapping("api/v1/asset")
 public class AssetController {
