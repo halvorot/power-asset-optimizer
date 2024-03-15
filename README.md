@@ -19,7 +19,7 @@ An asset has the following properties:
 - Minimum power usage (Kilowatts)
 - Maximum power usage (Kilowatts)
 - Total energy usage per 24 hours (Kilowatt hours)
-- Price area
+- Price area (NO1-NO5)
 
 ## Power usage optimization
 
