@@ -1,35 +1,43 @@
 package no.halvorteigen.powerassetoptimizer.controller;
 
-import no.halvorteigen.powerassetoptimizer.model.Asset;
-import no.halvorteigen.powerassetoptimizer.registry.AssetRegistry;
+import no.halvorteigen.powerassetoptimizer.dto.AssetDto;
+import no.halvorteigen.powerassetoptimizer.entity.AssetEntity;
+import no.halvorteigen.powerassetoptimizer.mappers.MapAssetEntityToAssetDto;
+import no.halvorteigen.powerassetoptimizer.service.AssetService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * NOTE: The asset registers through this API
- */
 @RestController
 @RequestMapping("api/v1/asset")
 public class AssetController {
 
-    private final AssetRegistry assetRegistry;
+    private final AssetService assetService;
 
-    public AssetController(AssetRegistry assetRegistry) {
-        this.assetRegistry = assetRegistry;
+    public AssetController(AssetService assetService) {
+        this.assetService = assetService;
     }
 
     @PostMapping
-    public ResponseEntity<Asset> registerAsset(@RequestBody Asset asset) {
-        return ResponseEntity.ok().body(assetRegistry.register(asset));
+    public ResponseEntity<AssetDto> registerAsset(@RequestBody AssetDto asset) {
+        AssetEntity assetEntity = assetService.registerAsset(asset);
+        return ResponseEntity.ok()
+            .body(MapAssetEntityToAssetDto.map(assetEntity));
+    }
+
+    @PutMapping
+    public ResponseEntity<AssetDto> updateAsset(@RequestBody AssetDto asset) {
+        AssetEntity assetEntity = assetService.updateAsset(asset);
+        return ResponseEntity.ok()
+            .body(MapAssetEntityToAssetDto.map(assetEntity));
     }
 
     @DeleteMapping("/{name}")
-    public ResponseEntity<Asset> removeAsset(@PathVariable String name) {
-        Asset removedAsset = assetRegistry.removeByName(name);
-        if (removedAsset == null) {
+    public ResponseEntity<String> removeAsset(@PathVariable String name) {
+        boolean isUnregistered = assetService.unregisterAsset(name);
+        if (!isUnregistered) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok().body(removedAsset);
+        return ResponseEntity.ok().build();
     }
 
 }

@@ -1,6 +1,6 @@
 package no.halvorteigen.powerassetoptimizer.service;
 
-import no.halvorteigen.powerassetoptimizer.model.Asset;
+import no.halvorteigen.powerassetoptimizer.entity.AssetEntity;
 import no.halvorteigen.powerassetoptimizer.model.PowerPrice;
 import org.apache.commons.math3.optim.MaxIter;
 import org.apache.commons.math3.optim.linear.*;
@@ -18,6 +18,7 @@ import java.util.stream.IntStream;
 
 @Service
 public class PowerOptimizationService {
+
     public static final int HOURS_PER_DAY = 24;
     private final PowerPriceService powerPriceService;
     private final Clock clock;
@@ -27,20 +28,19 @@ public class PowerOptimizationService {
         this.clock = clock;
     }
 
-    public Map<Integer, Double> optimizePowerUsage(Asset asset) {
+    public Map<Integer, Double> optimizePowerUsage(AssetEntity asset) {
 
         // NOTE: Assuming min, max and total energy usage are valid and produce a feasible solution
-        Double totalEnergyUsagePer24Hours = asset.totalEnergyUsagePer24Hours();
-        Double minPowerUsage = asset.minPowerUsage();
-        Double maxPowerUsage = asset.maxPowerUsage();
+        Double totalEnergyUsagePer24Hours = asset.getTotalEnergyUsagePer24Hours();
+        Double minPowerUsage = asset.getMinPowerUsage();
+        Double maxPowerUsage = asset.getMaxPowerUsage();
 
-        // NOTE: Optimizing for the next day
         LocalDateTime tomorrow = LocalDateTime.now(clock).plusDays(1);
         List<PowerPrice> powerPrices = powerPriceService.getPowerPrices(
             tomorrow.getYear(),
             tomorrow.getMonthValue(),
             tomorrow.getDayOfMonth(),
-            asset.priceArea()
+            asset.getPriceArea()
         );
 
         /*
@@ -70,8 +70,7 @@ public class PowerOptimizationService {
             new MaxIter(100),
             objectiveFunction,
             new LinearConstraintSet(constraints),
-            GoalType.MINIMIZE,
-            new NonNegativeConstraint(true) // NOTE: Assuming all power usage values must be non-negative
+            GoalType.MINIMIZE
         ).getPoint();
 
         return IntStream.range(0, solution.length)
