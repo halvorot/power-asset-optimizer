@@ -12,10 +12,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.web.client.RestTemplate;
 
-import java.time.Clock;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.time.*;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -61,12 +58,14 @@ class PowerOptimizationServiceTest {
             .thenReturn(powerPriceDtos);
 
         PowerOptimizationService powerOptimizationService = new PowerOptimizationService(
-            powerPriceService,
-            clock
+            powerPriceService
         );
 
         // Act
-        Map<Integer, Double> optimizePowerUsage = powerOptimizationService.optimizePowerUsage(asset1);
+        Map<Integer, Double> optimizePowerUsage = powerOptimizationService.optimizePowerUsage(
+            asset1,
+            LocalDate.now(clock)
+        );
 
         // Assert
         assertThat(optimizePowerUsage).hasSize(24);
@@ -93,6 +92,7 @@ class PowerOptimizationServiceTest {
         );
         PowerPriceService powerPriceService = new PowerPriceService(restTemplate);
         Clock clock = Clock.fixed(Instant.parse("2024-03-10T14:22:00Z"), ZoneId.of("Europe/Oslo"));
+        LocalDate dateNow = LocalDate.now(clock);
 
         PowerPriceDto[] powerPriceDtos = Stream
             .generate(() -> new PowerPriceDto(
@@ -111,12 +111,11 @@ class PowerOptimizationServiceTest {
             .thenReturn(powerPriceDtos);
 
         PowerOptimizationService powerOptimizationService = new PowerOptimizationService(
-            powerPriceService,
-            clock
+            powerPriceService
         );
 
         // Act & Assert
-        assertThatThrownBy(() -> powerOptimizationService.optimizePowerUsage(asset1))
+        assertThatThrownBy(() -> powerOptimizationService.optimizePowerUsage(asset1, dateNow))
             .isInstanceOf(NoFeasibleSolutionException.class)
             .hasMessageContaining("no feasible solution");
     }
