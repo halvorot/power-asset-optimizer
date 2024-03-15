@@ -39,6 +39,10 @@ public final class AssetEntity {
         this.priceArea = priceArea;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
@@ -57,6 +61,10 @@ public final class AssetEntity {
 
     public PriceArea getPriceArea() {
         return priceArea;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
 

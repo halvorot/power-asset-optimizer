@@ -15,6 +15,6 @@ public interface AssetRepository extends JpaRepository<AssetEntity, Long> {
     boolean existsByName(final String name);
 
     @Transactional
-    Long deleteByName(final String name);
+    void deleteByName(final String name);
 
 }
