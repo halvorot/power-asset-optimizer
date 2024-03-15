@@ -3,12 +3,12 @@ package no.halvorteigen.powerassetoptimizer.controller;
 import no.halvorteigen.powerassetoptimizer.entity.AssetEntity;
 import no.halvorteigen.powerassetoptimizer.repository.AssetRepository;
 import no.halvorteigen.powerassetoptimizer.service.PowerOptimizationService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.Clock;
+import java.time.LocalDate;
 import java.util.Map;
 import java.util.Optional;
 
@@ -18,21 +18,43 @@ public class PowerOptimizationController {
 
     private final AssetRepository assetRepository;
     private final PowerOptimizationService powerOptimizationService;
+    private final Clock clock;
 
-    public PowerOptimizationController(AssetRepository assetRepository, PowerOptimizationService powerOptimizationService) {
+    public PowerOptimizationController(
+        final AssetRepository assetRepository,
+        final PowerOptimizationService powerOptimizationService,
+        final Clock clock
+    ) {
         this.assetRepository = assetRepository;
         this.powerOptimizationService = powerOptimizationService;
+        this.clock = clock;
     }
 
+    /**
+     * Optimizes the power usage for the given asset for the given date. If no prices are found for the given
+     * date, a default price is used.
+     *
+     * @param assetName The name of the asset to optimize
+     * @param date      The date to optimize for. If not provided, defaults to tomorrow
+     * @return A map of the optimized power usage for each hour of the day from midnight (0) to 23:00 (23)
+     */
     @GetMapping("/{assetName}")
-    public ResponseEntity<Map<Integer, Double>> optimizeAssetPower(@PathVariable String assetName) {
+    public ResponseEntity<Map<Integer, Double>> optimizeAssetPower(
+        @PathVariable String assetName,
+        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date
+    ) {
         Optional<AssetEntity> assetOpt = assetRepository.findByName(assetName);
         if (assetOpt.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        Map<Integer, Double> optimizedPowerUsage = powerOptimizationService.optimizePowerUsage(assetOpt.get());
+        Map<Integer, Double> optimizedPowerUsage = powerOptimizationService.optimizePowerUsage(
+            assetOpt.get(),
+            date != null
+                ? date
+                : LocalDate.now(clock).plusDays(1)
+        );
         return ResponseEntity.ok()
-                             .body(optimizedPowerUsage);
+            .body(optimizedPowerUsage);
     }
 
 }

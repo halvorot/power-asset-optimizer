@@ -7,8 +7,7 @@ import org.apache.commons.math3.optim.linear.*;
 import org.apache.commons.math3.optim.nonlinear.scalar.GoalType;
 import org.springframework.stereotype.Service;
 
-import java.time.Clock;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -21,25 +20,22 @@ public class PowerOptimizationService {
 
     public static final int HOURS_PER_DAY = 24;
     private final PowerPriceService powerPriceService;
-    private final Clock clock;
 
-    public PowerOptimizationService(final PowerPriceService powerPriceService, Clock clock) {
+    public PowerOptimizationService(final PowerPriceService powerPriceService) {
         this.powerPriceService = powerPriceService;
-        this.clock = clock;
     }
 
-    public Map<Integer, Double> optimizePowerUsage(AssetEntity asset) {
+    public Map<Integer, Double> optimizePowerUsage(AssetEntity asset, LocalDate date) {
 
         // NOTE: Assuming min, max and total energy usage are valid and produce a feasible solution
         Double totalEnergyUsagePer24Hours = asset.getTotalEnergyUsagePer24Hours();
         Double minPowerUsage = asset.getMinPowerUsage();
         Double maxPowerUsage = asset.getMaxPowerUsage();
 
-        LocalDateTime tomorrow = LocalDateTime.now(clock).plusDays(1);
         List<PowerPrice> powerPrices = powerPriceService.getPowerPrices(
-            tomorrow.getYear(),
-            tomorrow.getMonthValue(),
-            tomorrow.getDayOfMonth(),
+            date.getYear(),
+            date.getMonthValue(),
+            date.getDayOfMonth(),
             asset.getPriceArea()
         );
 
@@ -74,8 +70,8 @@ public class PowerOptimizationService {
         ).getPoint();
 
         return IntStream.range(0, solution.length)
-                        .boxed()
-                        .collect(Collectors.toMap(index -> index, index -> solution[index]));
+            .boxed()
+            .collect(Collectors.toMap(index -> index, index -> solution[index]));
         // NOTE: May want to implement a semi optimal solution if the optimization fails,
         // or at least handle infeasible cases more gracefully
     }
