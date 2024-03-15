@@ -11,11 +11,7 @@ public class MapPowerPriceDtoToPowerPrice {
 
     public static PowerPrice map(PowerPriceDto powerPriceDto) {
         return new PowerPrice(
-            powerPriceDto.priceNokPerKwh(),
-            powerPriceDto.priceEurPerKwh(),
-            powerPriceDto.EXR(),
-            powerPriceDto.timeStart(),
-            powerPriceDto.timeEnd()
+            powerPriceDto.priceNokPerKwh()
         );
     }
 }
