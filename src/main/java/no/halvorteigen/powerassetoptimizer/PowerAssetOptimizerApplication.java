@@ -5,13 +5,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * Assumptions:
- * - Tests are not a priority
+ * - Tests are not a prioritized in this project
  * - The asset name is unique and can be used as an identifier
  * - Using an in-memory database is sufficient for now
  * - We optimize based on the power price in NOK
  * - Error handling and logging are not prioritized
- * <p>
- * Other assumptions are marked with 'NOTE:' in the code
  */
 
 @SpringBootApplication
