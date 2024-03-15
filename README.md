@@ -2,7 +2,7 @@
 
 A simple backend service for optimizing cost for electrical assets.
 The service optimizes power usage for assets for the next day based on certain parameters.
-The resolution for power usage changes is hourly. 
+The resolution for power usage changes is hourly.
 
 The main functionality can be summarized as follows:
 
@@ -13,8 +13,18 @@ The main functionality can be summarized as follows:
 
 Register an asset through a POST request to the `/api/v1/asset` endpoint.
 
+An asset has the following properties:
+
+- Name (unique identifier)
+- Minimum power usage (Kilowatts)
+- Maximum power usage (Kilowatts)
+- Total energy usage per 24 hours (Kilowatt hours)
+- Price area
+
 ## Power usage optimization
 
-Optimize power usage for a specific asset with a GET request to the `/api/v1/optimize/{assetName}` endpoint. The date to optimize for can be passed as a request parameter (optional, defaults to tomorrow).
+Optimize power usage for a specific asset with a GET request to the `/api/v1/optimize/{assetName}`
+endpoint. The date to optimize for can be passed as a request parameter (optional, defaults to
+tomorrow).
 
 The optimization will return a list of power usage for the next day, from midnight to midnight.
