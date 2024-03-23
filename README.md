@@ -19,11 +19,9 @@ docker run -p 8080:8080 -d halvorot/power-asset-optimizer:latest
 
 The application is now running on http://localhost:8080
 
-## API
+See the API documentation at [`/swagger-ui`](http://localhost:8080/swagger-ui).
 
-See the API documentation at `/swagger-ui`.
-
-The OpenAPI specification can be found at `/v3/api-docs`.
+The OpenAPI specification can be found at [`/v3/api-docs`](http://localhost:8080/v3/api-docs).
 
 ### Registering assets
 
