@@ -18,4 +18,9 @@ jobs:
           distribution: 'adopt'
           cache: maven
       - name: Build with Maven
-        run: mvn clean install
+        env:
+          DOCKER_REGISTRY_USERNAME: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
+          DOCKER_REGISTRY_PASSWORD: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
+          GITHUB_CI_USERNAME: halvorot
+          GITHUB_CI_PASSWORD: ${{ secrets.GITHUB_TOKEN}}
+        run: mvn compile jib:build
