@@ -9,6 +9,16 @@ The main functionality can be summarized as follows:
 - Registering assets
 - Power usage optimization
 
+## Running the application
+
+Run the application by cloning the project or by using Docker:
+
+```cmd
+docker run -p 8080:8080 -d halvorot/power-asset-optimizer:latest
+```
+
+The application is now running on http://localhost:8080
+
 ## API
 
 See the API documentation at `/swagger-ui`.
