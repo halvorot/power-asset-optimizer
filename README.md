@@ -9,7 +9,13 @@ The main functionality can be summarized as follows:
 - Registering assets
 - Power usage optimization
 
-## Registering assets
+## API
+
+See the API documentation at `/swagger-ui`.
+
+The OpenAPI specification can be found at `/v3/api-docs`.
+
+### Registering assets
 
 Register an asset through a POST request to the `/api/v1/asset` endpoint.
 
@@ -21,7 +27,7 @@ An asset has the following properties:
 - Total energy usage per 24 hours (Kilowatt hours)
 - Price area (NO1-NO5)
 
-## Power usage optimization
+### Power usage optimization
 
 Optimize power usage for a specific asset with a GET request to the `/api/v1/optimize/{assetName}`
 endpoint. The date to optimize for can be passed as a request parameter (optional, defaults to

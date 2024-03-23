@@ -1,5 +1,11 @@
 package no.halvorteigen.powerassetoptimizer.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import no.halvorteigen.powerassetoptimizer.dto.PowerUsageDto;
 import no.halvorteigen.powerassetoptimizer.entity.AssetEntity;
 import no.halvorteigen.powerassetoptimizer.repository.AssetRepository;
 import no.halvorteigen.powerassetoptimizer.service.PowerOptimizationService;
@@ -38,8 +44,23 @@ public class PowerOptimizationController {
      * @param date      The date to optimize for. If not provided, defaults to tomorrow
      * @return A map of the optimized power usage for each hour of the day from midnight (0) to 23:00 (23)
      */
+    @Operation(summary = "Optimize the power usage for a given asset")
+    @ApiResponses(
+        value = {
+            @ApiResponse(
+                responseCode = "200", description = "Power usage optimized successfully",
+                content = {@Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = PowerUsageDto.class)
+                )}
+            ),
+            @ApiResponse(
+                responseCode = "404", description = "Asset not found", content = @Content
+            )
+        }
+    )
     @GetMapping("/{assetName}")
-    public ResponseEntity<Map<Integer, Double>> optimizeAssetPower(
+    public ResponseEntity<PowerUsageDto> optimizeAssetPower(
         @PathVariable String assetName,
         @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date
     ) {
@@ -54,7 +75,7 @@ public class PowerOptimizationController {
                 : LocalDate.now(clock).plusDays(1)
         );
         return ResponseEntity.ok()
-            .body(optimizedPowerUsage);
+            .body(new PowerUsageDto(optimizedPowerUsage));
     }
 
 }
