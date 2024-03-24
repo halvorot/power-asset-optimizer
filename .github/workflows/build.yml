@@ -23,4 +23,4 @@ jobs:
           DOCKER_REGISTRY_PASSWORD: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
           GITHUB_CI_USERNAME: halvorot
           GITHUB_CI_PASSWORD: ${{ secrets.GITHUB_TOKEN}}
-        run: mvn compile jib:build
+        run: mvn clean install jib:build
